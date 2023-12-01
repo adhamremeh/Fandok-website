@@ -13,13 +13,13 @@ function Home() {
                 justify-center text-white text-xl animate-fadeIn">
                     <a className="text-white hover:text-white
                     hover:-translate-y-2 duration-700" href="/SignIN">
-                        <button className="shadow-lg shadow-RedWoodLight bg-RedWood
+                        <button className="shadow-md shadow-Seashell bg-RedWood
                         sm:text-xl text-base">Sign in</button>
                     </a>
                     <span className="text-black text-xl font-semibold">/</span>
                     <a className="text-white hover:text-white
                     hover:-translate-y-2 duration-700" href="/SignUP">
-                        <button className="shadow-lg shadow-RedWoodLight bg-RedWood
+                        <button className="shadow-md shadow-Seashell bg-RedWood
                         sm:text-xl text-base">Sign up</button>
                     </a>
                 </div>  

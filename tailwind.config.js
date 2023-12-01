@@ -1,5 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
+import foont from "/Kurale-Regular.ttf";
+
 const defaultTheme = require('tailwindcss/defaultTheme')
 
 export default {
@@ -16,12 +18,19 @@ export default {
           fontVariationSettings: '"opsz" 32'
         },
       ],
+      kuraleFont: [
+        '"kurale font", kurale',
+        {
+          fontFeatureSettings: '"cv11", "ss01"',
+          fontVariationSettings: '"opsz" 32'
+        },
+      ],
     },
     colors: {
       'white': '#ffffff',
       'black': '#000000',
-      "RedWood": "#9f4c4c",
-      "RedWoodLight": "#C38383",
+      "RedWood": "#003b95",
+      "RedWoodLight": "#006ce4",
       "Carib": "#7E685A",
       "CaribLight": "#AA9588",
       "Seashell": "#C2CAD0",
@@ -31,6 +40,8 @@ export default {
       "mint": "#4fc9b1",
       "mintLight": "#64ffe0",
       "grey": "#cccccc",
+      "yellow": "#ffb700",
+      "red": "#da1a1b",
     },
     extend: {
       animation: {
@@ -49,7 +60,7 @@ export default {
         fadeIn: {
           '0%': { transform: 'translateY(-20px)', opacity: 0.0 },
           '75%': { transform: 'translateY(-20px)', opacity: 0.0 },
-          '100%': { transform: 'translateY(-10px)', opacity: 1.0 }
+          '100%': { transform: 'translateY(15px)', opacity: 1.0 }
         },
         signfadeIn: {
           '0%': { transform: 'translateY(-20px)', opacity: 0.0 },

@@ -7,7 +7,7 @@ function SignIN() {
         e.preventDefault();
         const formData = new FormData(e.target);
 
-        window.location = "/user/"+formData.get("email")+"/"+formData.get("password");
+        window.location = "/user/"+formData.get("email");
     };
 
     return (

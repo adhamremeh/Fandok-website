@@ -1,6 +1,10 @@
 import LogoText from "/LogoText.png";
 import FormLabel from "../custom components/FormLabel";
 import styles from "../custom styles/styles";
+import {auth} from "../Services/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { UploadUser } from "../Services/UploadData";
+import User from "../models/User";
 
 function SignUP () {
     
@@ -8,7 +12,28 @@ function SignUP () {
         e.preventDefault();
         const formData = new FormData(e.target);
 
-        window.location = "/user/" + formData.get("email");
+        const isHotel = (formData.get("email").split("@")[1] == "fandok.com");
+
+        if (!isHotel) {
+            const newUser = new User(
+                formData.get("name"),
+                formData.get("email"),
+                formData.get("phoneNumber"),
+                formData.get("password"),
+            );
+    
+            createUserWithEmailAndPassword(auth, formData.get("email"), formData.get("password"))
+                .then(async (userCredential) => {
+                    const user = userCredential.user;
+                    await UploadUser(newUser);
+                    window.location = "/user-home/" + formData.get("name");
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    console.log(errorMessage);
+                });
+        }
     };
 
 

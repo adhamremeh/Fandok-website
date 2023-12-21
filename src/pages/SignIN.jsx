@@ -1,5 +1,7 @@
 import LogoText from "/LogoText.png";
 import FormLabel from "../custom components/FormLabel";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../Services/firebase";
 
 function SignIN() {
 
@@ -7,7 +9,26 @@ function SignIN() {
         e.preventDefault();
         const formData = new FormData(e.target);
 
-        window.location = "/user/"+formData.get("email");
+        signInWithEmailAndPassword(auth, formData.get("email"), formData.get("password"))
+            .then((userCredential) => {
+                const user = userCredential.user;
+
+                console.log(formData.get("email"));
+
+                if (formData.get("email").split("@")[1] == "fandok.com") {
+                    window.location = "/dash/" + formData.get("email");
+                } else {
+                    window.location = "/user-home/" + formData.get("email");
+                }
+
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+
+                console.log(errorMessage);
+            });
+
     };
 
     return (
@@ -30,7 +51,7 @@ function SignIN() {
                     <FormLabel title="Email:" name="email" type="email" />
                     <FormLabel title="Password:" name="password" type="password" />
 
-                    <input type="submit" value="Sign Up" className="shadow-md
+                    <input type="submit" value="Sign IN" className="shadow-md
                     shadow-RedWoodLight p-3 px-6 m-5 rounded-lg border-black border-r-4 
                     border-l-2 border-t-2 border-b-4 hover:-translate-y-1 duration-500 
                     hover:cursor-pointer"/>

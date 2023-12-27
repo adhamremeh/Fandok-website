@@ -2,7 +2,7 @@ import { collection, doc, getDoc, getDocs, query, where } from "firebase/firesto
 import { db } from "./firebase";
 import Hotel from "../models/Hotel";
 import User from "../models/User";
-import { ActiveHotel } from "../active models/ActiveHotel";
+import { setActiveHotel } from "../active models/ActiveHotel";
 import { ActiveUser } from "../active models/ActiveUser";
 import RoomOffer from "../models/RoomOffer";
 
@@ -11,7 +11,7 @@ async function FetchOffers(Email) {
 
     const querySnapshot = await getDocs(OffersQuery);
 
-    Offers = [];
+    let Offers = [];
     querySnapshot.forEach((doc) => {
         const data = doc.data();
         Offers.push(
@@ -55,10 +55,10 @@ async function FetchHotel(Email) {
         data.HotelName,
         data.Address,
         data.Contacts,
-        data.Reservations,
-    );
+        data.Reservations, 
+    );  
 
-    ActiveHotel = fetchedHotel;
+    setActiveHotel(fetchedHotel);
 }
 
-export { FetchOffers, FetchReservations, FetchSearch, FetchUser, FetchHotel };
+export { FetchOffers, FetchSearch, FetchUser, FetchHotel };

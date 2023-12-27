@@ -17,6 +17,8 @@ async function UploadOffer(Offer) {
         Title: Offer.Title,
         RoomNum: Offer.RoomNum,
         Hotel: Offer.Hotel,
+        HotelEmail: Offer.HotelEmail,
+        OfferIMG: Offer.OfferIMG,
     });
 }
 

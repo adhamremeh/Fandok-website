@@ -1,6 +1,8 @@
 import { useParams } from "react-router-dom";
 import NavBar from "../../custom components/NavBar";
 import styles from "../../custom styles/styles";
+import { useEffect } from "react";
+import { FetchHotel } from "../../Services/FetchData";
 
 function ReservationCard() {
     return (
@@ -115,8 +117,13 @@ function CanceledReservationCard() {
 
 function Dashboard() {
 
-    const hotelname = useParams()["hotelname"];
-    const password = useParams()["password"];
+    const hotelmail = useParams()["hotelmail"];
+
+    useEffect(() => {
+        FetchHotel(hotelmail).then(() => {
+            console.log(localStorage.getItem("ActiveHotel"));
+        });
+    }, [])
 
     const handleClick = (tabName) => {
         console.log(tabName);

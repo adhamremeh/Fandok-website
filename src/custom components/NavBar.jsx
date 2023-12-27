@@ -4,8 +4,6 @@ import styles from "../custom styles/styles";
 
 function NavBar(props) {
 
-    console.log(document.URL);
-    
     return(
         <>
         {
@@ -16,7 +14,7 @@ function NavBar(props) {
             justify-evenly items-center shadow-md shadow-RedWoodLight mb-2`}>
                 <a className={`text-RedWood shadow-md shadow-CaribLight
                 rounded-xl hover:text-Carib hover:-translate-y-1
-                ease-in-out duration-500`+styles.CustomBorder} href={"/dash/" + useParams()["hotelname"]}>
+                ease-in-out duration-500`+styles.CustomBorder} href={"/dash/" + useParams()["hotelmail"]}>
                     <button> DashBoard </button>
                 </a>
                 
@@ -24,7 +22,7 @@ function NavBar(props) {
                 
                 <a className={`text-RedWood shadow-md shadow-CaribLight
                 rounded-xl hover:text-Carib hover:-translate-y-1
-                ease-in-out duration-500`+ styles.CustomBorder} href={"/room-offers/" + useParams()["hotelname"]}>
+                ease-in-out duration-500`+ styles.CustomBorder} href={"/room-offers/" + useParams()["hotelmail"]}>
                     <button> Room Offers </button>
                 </a>
             </div>
@@ -35,7 +33,7 @@ function NavBar(props) {
             justify-evenly items-center shadow-md shadow-RedWoodLight mb-2`}>
                         <a className={`text-RedWood shadow-md shadow-CaribLight
                 rounded-xl hover:text-Carib hover:-translate-y-1
-                ease-in-out duration-500`+ styles.CustomBorder} href={"/dash/" + useParams()["hotelname"]}>
+                ease-in-out duration-500`+ styles.CustomBorder} href={"/dash/" + useParams()["hotelmail"]}>
                             <button> Home </button>
                         </a>
 
@@ -43,7 +41,7 @@ function NavBar(props) {
 
                         <a className={`text-RedWood shadow-md shadow-CaribLight
                 rounded-xl hover:text-Carib hover:-translate-y-1
-                ease-in-out duration-500`+ styles.CustomBorder} href={"/room-offers/" + useParams()["hotelname"]}>
+                ease-in-out duration-500`+ styles.CustomBorder} href={"/room-offers/" + useParams()["hotelmail"]}>
                             <button> Reserve a room </button>
                         </a>
                     </div>

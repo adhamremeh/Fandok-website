@@ -17,8 +17,8 @@ function App() {
           <Route exact path="/" element={<Home />}></Route>
           <Route exact path="/SignUP" element={<SignUP />}></Route>
           <Route exact path="/SignIN" element={<SignIN />}></Route>
-          <Route exact path="/room-offers/:hotelname" element={<RoomOffers />}></Route>
-          <Route exact path="/dash/:hotelname" element={<Dashboard />}></Route>
+          <Route exact path="/room-offers/:hotelmail" element={<RoomOffers />}></Route>
+          <Route exact path="/dash/:hotelmail" element={<Dashboard />}></Route>
           <Route exact path="/user-Home/:email" element={<HomeUser />}></Route>
 
           <Route path="*" element={<NotFound />}></Route>

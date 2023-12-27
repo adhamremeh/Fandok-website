@@ -1,5 +1,5 @@
-import Hotel from "../models/Hotel";
+function setActiveHotel(Hotel) {
+    localStorage.setItem("ActiveHotel", JSON.stringify(Hotel));
+}
 
-ActiveHotel;
-
-export { ActiveHotel }; 
+export { setActiveHotel }; 

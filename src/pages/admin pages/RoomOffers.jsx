@@ -1,5 +1,10 @@
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import NavBar from "../../custom components/NavBar";
 import styles from "../../custom styles/styles";
+import { FetchOffers } from "../../Services/FetchData";
+import { UploadOffer } from "../../Services/UploadData";
+import RoomOffer from "../../models/RoomOffer";
 
 function ReservationCard() {
     return (
@@ -37,9 +42,30 @@ function ReservationCard() {
 
 function RoomOffers() {
 
-    const handleChooseImage = () => {
-        console.log("test");
-    };
+    const hotelmail = useParams()["hotelmail"];
+
+    useEffect(() => {
+        // FetchOffers(hotelmail).then((res) => {
+        //     console.log(res);
+        // });
+        console.log(JSON.parse(localStorage.getItem("ActiveHotel")));
+    }, []);
+
+    const AddOffer = () => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+
+        UploadOffer(
+            RoomOffer(
+                formData.get("price"),
+                formData.get("description"),
+                formData.get("title"),
+                formData.get("roomNum"),
+                fo
+            )
+        )
+
+    }; 
 
     return(
         <>
@@ -49,13 +75,16 @@ function RoomOffers() {
                 gap-7 p-5 rounded-xl shadow-md shadow-SeashellLight
                 items-center justify-center border-yellow border-4">
                     <form className="flex flex-col w-full justify-center items-center gap-7">
-                        <img onClick={handleChooseImage} className="h-24 rounded-lg hover:cursor-pointer" src="https://www.pulsecarshalton.co.uk/wp-content/uploads/2016/08/jk-placeholder-image.jpg"/>
-                        <input type="file" className="text-white"/>
-                        <input className="rounded-lg p-2 w-full" placeholder="offer title" />
-                        <textarea className="p-2 rounded-lg w-full" placeholder="description"/>
-                        <input className="p-2 rounded-lg" type="number" placeholder="Price/night"/>
+                        <img className="h-24 rounded-lg hover:cursor-pointer" src="https://www.pulsecarshalton.co.uk/wp-content/uploads/2016/08/jk-placeholder-image.jpg"/>
+                        <input className="rounded-lg p-2 w-full" name="img" placeholder="Image Link" />
+                        <input className="rounded-lg p-2 w-full" name="title" placeholder="offer title" />
+                        <textarea className="p-2 rounded-lg w-full" name="description" placeholder="description"/>
+                        <input className="p-2 rounded-lg" type="number" name="price" placeholder="Price/night"/>
+                        <input type="Submit" value="Add Offer" className="shadow-md
+                        shadow-RedWoodLight p-3 px-6 m-5 rounded-lg border-black border-r-4 
+                        border-l-2 border-t-2 border-b-4 hover:-translate-y-1 duration-500 
+                        hover:cursor-pointer bg-white font-semibold" />
                     </form>
-                    <button className={'' + styles.CustomBorder}> Add offer </button>
                 </div>
                 <div className="showData overflow-scroll bg-white w-full p-4 rounded-xl
                 flex flex-col justify-start h-[83vh] items-center gap-10">

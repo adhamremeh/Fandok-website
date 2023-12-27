@@ -1,5 +1,9 @@
 import User from "../models/User";
 
-ActiveUser;
+var ActiveUser;
 
-export { ActiveUser }; 
+function setActiveUser(User) {
+    ActiveUser = User;
+}
+
+export { ActiveUser, setActiveUser }; 

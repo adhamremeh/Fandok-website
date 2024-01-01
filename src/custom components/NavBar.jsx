@@ -33,7 +33,7 @@ function NavBar(props) {
             justify-evenly items-center shadow-md shadow-RedWoodLight mb-2`}>
                         <a className={`text-RedWood shadow-md shadow-CaribLight
                 rounded-xl hover:text-Carib hover:-translate-y-1
-                ease-in-out duration-500`+ styles.CustomBorder} href={"/dash/" + useParams()["hotelmail"]}>
+                ease-in-out duration-500`+ styles.CustomBorder} href={"/user-home/" + useParams()["email"]}>
                             <button> Home </button>
                         </a>
 
@@ -41,7 +41,7 @@ function NavBar(props) {
 
                         <a className={`text-RedWood shadow-md shadow-CaribLight
                 rounded-xl hover:text-Carib hover:-translate-y-1
-                ease-in-out duration-500`+ styles.CustomBorder} href={"/room-offers/" + useParams()["hotelmail"]}>
+                ease-in-out duration-500`+ styles.CustomBorder} href={"/reserve-a-room/" + useParams()["email"]}>
                             <button> Reserve a room </button>
                         </a>
                     </div>

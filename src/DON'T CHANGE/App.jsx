@@ -6,6 +6,7 @@ import SignIN from "../pages/SignIN";
 import Home from "../pages/Home";
 import RoomOffers from "../pages/admin pages/RoomOffers";
 import HomeUser from "../pages/user pages/UserHome";
+import ReserveARoom from "../pages/user pages/ReserveARoom";
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
           <Route exact path="/room-offers/:hotelmail" element={<RoomOffers />}></Route>
           <Route exact path="/dash/:hotelmail" element={<Dashboard />}></Route>
           <Route exact path="/user-Home/:email" element={<HomeUser />}></Route>
+          <Route exact path="/reserve-a-room/:email" element={<ReserveARoom />}></Route>
 
           <Route path="*" element={<NotFound />}></Route>
 

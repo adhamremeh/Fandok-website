@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import NavBar from "../../custom components/NavBar";
 import styles from "../../custom styles/styles";
@@ -6,7 +6,7 @@ import { FetchOffers } from "../../Services/FetchData";
 import { UploadOffer } from "../../Services/UploadData";
 import RoomOffer from "../../models/RoomOffer";
 
-function ReservationCard() {
+function OfferCard({offer}) {
     return (
         <>
             <div className={window.innerWidth < 640 ? styles.CustomBorder +
@@ -16,22 +16,28 @@ function ReservationCard() {
                 : `hover:-translate-y-1 hover:border-black hover:border-2 
             duration-200 p-0 rounded-lg sm:w-[650px] lg:w-[1000px] w-[full] 
             bg-RedWood text-white flex sm:flex-row flex-col items-center`}>
-                <img className="sm:rounded-l-lg rounded-t-lg w-[370px] h-[270px] object-cover" src="https://q-xx.bstatic.com/xdata/images/hotel/max500/453885496.jpg?k=442b4e01e2c5472490b022d65edc264e5b7b52c83edaffc1636716c399f1025b&o=" />
+                <img className="sm:rounded-l-lg rounded-t-lg w-[370px] h-[270px] object-cover" src={offer.OfferIMG} />
                 <div className="flex flex-col px-5 w-full py-2">
                     <p className="text-center pb-2 italic font-bold">
                         ➡️ Details ⬅️
                     </p>
-                    <p>
-                        Room with sea view
+                    <p className="text-center pb-2 italic font-bold">
+                        {offer.Hotel}
                     </p>
                     <p>
-                        Phone number: 01090408424
+                        {offer.Title}
                     </p>
                     <p>
-                        Email: adhamremeh@gmail.com
+                        {offer.Description}
                     </p>
                     <p>
-                        Price: 260 / night
+                        Price: {offer.price} / night
+                    </p>
+                    <p>
+                        Room Number: {offer.RoomNum}
+                    </p>
+                    <p>
+                        Email: {offer.HotelEmail}
                     </p>
                     <button className={'mt-6 text-black hover:border-red' + styles.CustomBorder}> Delete this offer ? </button>
                 </div>
@@ -43,28 +49,31 @@ function ReservationCard() {
 function RoomOffers() {
 
     const hotelmail = useParams()["hotelmail"];
+    const [offers, setOffers] = useState([]);
 
     useEffect(() => {
-        // FetchOffers(hotelmail).then((res) => {
-        //     console.log(res);
-        // });
-        console.log(JSON.parse(localStorage.getItem("ActiveHotel")));
+        FetchOffers(hotelmail).then((res) => {
+            setOffers(res);
+        });
     }, []);
 
-    const AddOffer = () => {
+    const AddOffer = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
 
-        UploadOffer(
-            RoomOffer(
-                formData.get("price"),
-                formData.get("description"),
-                formData.get("title"),
-                formData.get("roomNum"),
-                fo
-            )
-        )
+        const offer = new RoomOffer(
+            formData.get("price"),
+            formData.get("description"),
+            formData.get("title"),
+            formData.get("roomNum"),
+            JSON.parse(localStorage.getItem("ActiveHotel")).HotelName,
+            hotelmail,
+            formData.get("img"),
+        );
 
+        await UploadOffer(offer);
+        offers.push(offer);
+        setOffers(Array.from(offers));
     }; 
 
     return(
@@ -74,14 +83,15 @@ function RoomOffers() {
                 <div className="leftNav bg-RedWood flex flex-row flex-wrap 
                 gap-7 p-5 rounded-xl shadow-md shadow-SeashellLight
                 items-center justify-center border-yellow border-4">
-                    <form className="flex flex-col w-full justify-center items-center gap-7">
+                    <form onSubmit={AddOffer} className="flex flex-col w-full justify-center items-center gap-7">
                         <img className="h-24 rounded-lg hover:cursor-pointer" src="https://www.pulsecarshalton.co.uk/wp-content/uploads/2016/08/jk-placeholder-image.jpg"/>
                         <input className="rounded-lg p-2 w-full" name="img" placeholder="Image Link" />
                         <input className="rounded-lg p-2 w-full" name="title" placeholder="offer title" />
                         <textarea className="p-2 rounded-lg w-full" name="description" placeholder="description"/>
                         <input className="p-2 rounded-lg" type="number" name="price" placeholder="Price/night"/>
+                        <input className="p-2 rounded-lg" type="number" name="roomNum" placeholder="Room Number" />
                         <input type="Submit" value="Add Offer" className="shadow-md
-                        shadow-RedWoodLight p-3 px-6 m-5 rounded-lg border-black border-r-4 
+                        shadow-RedWoodLight p-3 px-6 m-0 rounded-lg border-black border-r-4 
                         border-l-2 border-t-2 border-b-4 hover:-translate-y-1 duration-500 
                         hover:cursor-pointer bg-white font-semibold" />
                     </form>
@@ -89,11 +99,11 @@ function RoomOffers() {
                 <div className="showData overflow-scroll bg-white w-full p-4 rounded-xl
                 flex flex-col justify-start h-[83vh] items-center gap-10">
                     <h1> Rooms availabel to users </h1>
-                    <ReservationCard />
-                    <ReservationCard />
-                    <ReservationCard />
-                    <ReservationCard />
-                    <ReservationCard /> 
+                    {
+                        offers.map((item, index) => {
+                            return (<OfferCard offer={item} />);
+                        })
+                    }
                 </div>
             </div>
         </>

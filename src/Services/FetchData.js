@@ -3,7 +3,7 @@ import { db } from "./firebase";
 import Hotel from "../models/Hotel";
 import User from "../models/User";
 import { setActiveHotel } from "../active models/ActiveHotel";
-import { ActiveUser } from "../active models/ActiveUser";
+import { setActiveUser } from "../active models/ActiveUser";
 import RoomOffer from "../models/RoomOffer";
 
 async function FetchOffers(Email) {
@@ -15,13 +15,38 @@ async function FetchOffers(Email) {
     querySnapshot.forEach((doc) => {
         const data = doc.data();
         Offers.push(
-            RoomOffer(
+            new RoomOffer(
                 data.Price,
                 data.Description,
                 data.Title,
                 data.RoomNum,
                 data.Hotel,
                 data.HotelEmail,
+                data.OfferIMG,
+            )
+        )
+    });
+
+    return Offers;
+}
+
+async function FetchUserOffers() {
+    const OffersQuery = query(collection(db, "RoomOffers"));
+
+    const querySnapshot = await getDocs(OffersQuery);
+
+    let Offers = [];
+    querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        Offers.push(
+            new RoomOffer(
+                data.Price,
+                data.Description,
+                data.Title,
+                data.RoomNum,
+                data.Hotel,
+                data.HotelEmail,
+                data.OfferIMG,
             )
         )
     });
@@ -44,7 +69,7 @@ async function FetchUser(Email) {
         data.Password,
     );
 
-    ActiveUser = fetchedUser;
+    setActiveUser(fetchedUser);
 }
 
 async function FetchHotel(Email) {
@@ -61,4 +86,4 @@ async function FetchHotel(Email) {
     setActiveHotel(fetchedHotel);
 }
 
-export { FetchOffers, FetchSearch, FetchUser, FetchHotel };
+export { FetchOffers, FetchSearch, FetchUser, FetchHotel, FetchUserOffers };

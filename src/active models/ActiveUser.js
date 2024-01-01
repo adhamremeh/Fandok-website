@@ -1,9 +1,5 @@
-import User from "../models/User";
-
-var ActiveUser;
-
 function setActiveUser(User) {
-    ActiveUser = User;
+    localStorage.setItem("ActiveUser", JSON.stringify(User));
 }
 
-export { ActiveUser, setActiveUser }; 
+export { setActiveUser }; 

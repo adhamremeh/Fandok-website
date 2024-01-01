@@ -145,7 +145,7 @@ function Dashboard() {
                 </div>
                 <div className="showData bg-white w-full p-4 rounded-xl
                 flex flex-col justify-center items-center gap-10">
-                    <CanceledReservationCard />
+                    <ReservationCard />
                     <CanceledReservationCard />
                     <CanceledReservationCard />
                     <CanceledReservationCard />

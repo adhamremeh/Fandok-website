@@ -1,4 +1,7 @@
+import { useEffect } from "react";
 import NavBar from "../../custom components/NavBar";
+import { FetchUser } from "../../Services/FetchData";
+import { useParams } from "react-router-dom";
 
 function RoomCard() {
     return(
@@ -12,7 +15,13 @@ function RoomCard() {
 
 function HomeUser() {
 
+    const usermail = useParams()["email"];
 
+    useEffect(() => {
+        FetchUser(usermail).then( () => {
+            console.log(JSON.parse(localStorage.getItem("ActiveUser")))
+        });
+    }, [])
 
 
     return(

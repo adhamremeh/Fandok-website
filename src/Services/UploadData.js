@@ -11,9 +11,9 @@ async function UploadUser(User) {
 }
 
 async function UploadOffer(Offer) {
-    await setDoc(doc(db, "RoomOffers", Offer.title), {
+    await setDoc(doc(db, "RoomOffers", Offer.Title), {
         Price: Offer.Price,
-        Desciption: Offer.Desciption,
+        Description: Offer.Description,
         Title: Offer.Title,
         RoomNum: Offer.RoomNum,
         Hotel: Offer.Hotel,
